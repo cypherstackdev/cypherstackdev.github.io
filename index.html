@@ -44,9 +44,12 @@
         <p class="hero-description">
           Software Engineer specializing in high-performance web automation, asynchronous data extraction pipelines, 24/7 cloud workflows, and resilient full-stack systems.
         </p>
+        <div class="identity-note">
+          <span>🔒 Verified Freelance Engineer • Full credentials, CV, and identity shared upon project review.</span>
+        </div>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">Explore Featured Projects ↓</a>
-          <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+          <a href="#contact" class="btn btn-secondary">Request Project Quote</a>
         </div>
       </div>
     </div>
@@ -280,24 +283,66 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- Contact & Project Inquiry Section -->
   <section id="contact">
     <div class="container">
       <div class="contact-card">
-        <span class="section-tag">// Let's Connect</span>
-        <h3>Have a Project or Contract in Mind?</h3>
-        <p>Whether you need a custom scraping pipeline, an automated bot, or full-stack software development, let's build something exceptional.</p>
+        <span class="section-tag">// Start a Project</span>
+        <h3>Request Scoping & Consultation</h3>
+        <p>Have a data extraction, automation, or full-stack project in mind? Submit your project requirements below to receive a custom proposal and scope.</p>
         
-        <div class="email-box" id="copy-email-btn" data-email="arandomguyalive@gmail.com" title="Click to copy email">
-          <span>📧</span>
-          <span>arandomguyalive@gmail.com</span>
-          <span style="font-size: 0.75rem; opacity: 0.7;">(Click to copy)</span>
+        <!-- Project Inquiry Form -->
+        <form class="inquiry-form" id="inquiry-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="client-name">Your Name / Organization</label>
+              <input type="text" id="client-name" required placeholder="e.g. Alex (Acme Corp)">
+            </div>
+            <div class="form-group">
+              <label for="client-email">Your Contact Email</label>
+              <input type="email" id="client-email" required placeholder="alex@example.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="project-type">Project Category</label>
+              <select id="project-type" required>
+                <option value="Custom Web Scraping & Data Extraction">Custom Web Scraping & Data Extraction</option>
+                <option value="24/7 Cloud Automation & Alert Bot">24/7 Cloud Automation & Alert Bot</option>
+                <option value="Full-Stack Web / API Development">Full-Stack Web / API Development</option>
+                <option value="Other Custom Engineering">Other Custom Engineering</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="project-timeline">Target Timeline / Budget</label>
+              <input type="text" id="project-timeline" placeholder="e.g. 1-2 weeks / Flexible">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="project-details">Project Description & Target URLs</label>
+            <textarea id="project-details" rows="4" required placeholder="Describe your project, target websites, required data fields, and any specific deliverables..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            🚀 Send Project Inquiry
+          </button>
+        </form>
+
+        <div style="margin-top: 32px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+          <div class="email-box" id="copy-email-btn" data-email="abhiroy.tcsdev@gmail.com" title="Click to copy email">
+            <span>📧</span>
+            <span>abhiroy.tcsdev@gmail.com</span>
+            <span style="font-size: 0.75rem; opacity: 0.7;">(Click to copy)</span>
+          </div>
+
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 8px;">
+            <a href="mailto:abhiroy.tcsdev@gmail.com?subject=Project%20Inquiry%20from%20Portfolio" class="btn btn-secondary btn-sm">Direct Email ✉️</a>
+            <a href="https://github.com/arandomguyalive" target="_blank" class="btn btn-secondary btn-sm">GitHub Profile ↗</a>
+          </div>
         </div>
 
-        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-          <a href="mailto:arandomguyalive@gmail.com" class="btn btn-primary">Send Direct Email ✉️</a>
-          <a href="https://github.com/arandomguyalive" target="_blank" class="btn btn-secondary">GitHub Profile ↗</a>
-        </div>
       </div>
     </div>
   </section>

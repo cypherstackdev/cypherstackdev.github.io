@@ -67,20 +67,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const copyBtn = document.getElementById("copy-email-btn");
   const toast = document.getElementById("toast");
 
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => { toast.classList.remove("show"); }, 3500);
+  }
+
   if (copyBtn) {
     copyBtn.addEventListener("click", () => {
-      const email = copyBtn.getAttribute("data-email") || "arandomguyalive@gmail.com";
+      const email = copyBtn.getAttribute("data-email") || "abhiroy.tcsdev@gmail.com";
       navigator.clipboard.writeText(email).then(() => {
-        if (toast) {
-          toast.textContent = `✓ Copied "${email}" to clipboard!`;
-          toast.classList.add("show");
-          setTimeout(() => { toast.classList.remove("show"); }, 3000);
-        }
+        showToast(`✓ Copied "${email}" to clipboard!`);
       });
     });
   }
 
-  // 4. Smooth Nav Link Highlighting on Scroll
+  // 4. Project Inquiry Form Submission
+  const inquiryForm = document.getElementById("inquiry-form");
+  if (inquiryForm) {
+    inquiryForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const clientName = document.getElementById("client-name").value.trim();
+      const clientEmail = document.getElementById("client-email").value.trim();
+      const projectType = document.getElementById("project-type").value;
+      const timeline = document.getElementById("project-timeline").value.trim() || "Flexible";
+      const details = document.getElementById("project-details").value.trim();
+
+      const subject = encodeURIComponent(`Project Inquiry: ${projectType} - ${clientName}`);
+      const body = encodeURIComponent(
+        `Hi,\n\nI would like to discuss a project with you.\n\n` +
+        `Client/Organization: ${clientName}\n` +
+        `Reply Email: ${clientEmail}\n` +
+        `Project Category: ${projectType}\n` +
+        `Timeline / Budget: ${timeline}\n\n` +
+        `Project Requirements & Target URLs:\n${details}\n\n` +
+        `Looking forward to your scope and proposal.`
+      );
+
+      // Open user email client
+      window.location.href = `mailto:abhiroy.tcsdev@gmail.com?subject=${subject}&body=${body}`;
+      showToast("🚀 Opening your email client to send inquiry...");
+    });
+  }
+
+  // 5. Smooth Nav Link Highlighting on Scroll
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-links a");
 
