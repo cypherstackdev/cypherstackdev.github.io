@@ -155,6 +155,7 @@
       <div class="filter-container">
         <button class="filter-btn active" data-filter="all">All Projects</button>
         <button class="filter-btn" data-filter="automation">Automation & Scraping</button>
+        <button class="filter-btn" data-filter="ai">AI & Document Intel</button>
         <button class="filter-btn" data-filter="fullstack">Web Applications</button>
         <button class="filter-btn" data-filter="fintech">Trading & FinTech</button>
       </div>
@@ -280,12 +281,45 @@
               <span class="tech-tag">Web Audio API</span>
             </div>
             <div class="project-links">
-              <a href="https://github.com/arandomguyalive/pulse-analytics" target="_blank" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
+              <a href="https://arandomguyalive.github.io/pulse-analytics/" target="_blank" class="btn btn-primary btn-sm">Live Demo 🚀</a>
+              <a href="https://github.com/arandomguyalive/pulse-analytics" target="_blank" class="btn btn-secondary btn-sm">GitHub Repo ↗</a>
             </div>
           </div>
         </div>
 
-        <!-- Project 5: Banking Transaction Core -->
+        <!-- Project 5: DocuMind -->
+        <div class="project-card" data-category="ai">
+          <div>
+            <div class="project-header">
+              <h3 class="project-title">DocuMind</h3>
+              <span class="project-badge purple">🧠 Enterprise AI Agent</span>
+            </div>
+            <p class="project-description">
+              Enterprise AI Document & Contract Intelligence Agent. Automatically parses complex unstructured PDFs, extracts legal clauses, performs cross-document semantic audit, and generates structured spreadsheet summaries.
+            </p>
+            <ul class="project-features">
+              <li><span class="feature-bullet">▹</span> Deep PDF layout decomposition & OCR pipeline with PyPDF & FastAPI</li>
+              <li><span class="feature-bullet">▹</span> Multi-vector semantic chunking and automated risk anomaly scoring</li>
+              <li><span class="feature-bullet">▹</span> 1-click structured Excel (.xlsx) compliance audit matrix export</li>
+              <li><span class="feature-bullet">▹</span> High-throughput async REST API with Pydantic validation</li>
+            </ul>
+          </div>
+          <div>
+            <div class="project-tech-stack">
+              <span class="tech-tag">Python 3.14</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">Pydantic</span>
+              <span class="tech-tag">PyPDF</span>
+              <span class="tech-tag">OpenPyXL</span>
+              <span class="tech-tag">Pandas</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/arandomguyalive/docu-mind" target="_blank" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: Banking Transaction Core -->
         <div class="project-card" data-category="fullstack">
           <div>
             <div class="project-header">
@@ -314,7 +348,7 @@
           </div>
         </div>
 
-        <!-- Project 6: Movie Intelligence & Search App -->
+        <!-- Project 7: Movie Intelligence & Search App -->
         <div class="project-card" data-category="fullstack">
           <div>
             <div class="project-header">
