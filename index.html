@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <div class="glow-orb"></div>
+  <div class="ambient-glow"></div>
 
   <!-- Navigation Header -->
   <header>
@@ -35,16 +35,19 @@
   <section class="hero" id="about">
     <div class="container">
       <div class="hero-content">
-        <div class="status-badge">
-          <span class="pulse-dot"></span>
-          <span>Open to Freelance & High-Impact Contracts</span>
+        <div class="status-pill">
+          <span class="pulse-indicator"></span>
+          <span>AVAILABLE FOR FREELANCE & CONTRACT ENGINEERING</span>
         </div>
-        <h1>Building <span class="highlight">Autonomous Data Engines</span> & Scalable Software.</h1>
-        <div class="typed-text" id="typed-text">Python Automation Architect</div>
+        <h1>Building <span class="highlight">Autonomous Data Engines</span> & Scalable Systems.</h1>
+        <div class="typed-container">
+          <span id="typed-text">Python Automation Architect</span>
+          <span class="typed-cursor"></span>
+        </div>
         <p class="hero-description">
-          Software Engineer specializing in high-performance web automation, asynchronous data extraction pipelines, 24/7 cloud workflows, and resilient full-stack systems.
+          Software Engineer specializing in high-throughput web automation, asynchronous data extraction pipelines, 24/7 cloud workflows, and resilient full-stack systems.
         </p>
-        <div class="identity-note">
+        <div class="privacy-badge">
           <span>🔒 Verified Freelance Engineer • Full credentials, CV, and identity shared upon project review.</span>
         </div>
         <div class="hero-cta">
@@ -63,9 +66,15 @@
         <h2 class="section-title">Technical Arsenal</h2>
       </div>
       <div class="skills-grid">
+        
+        <!-- Skill 1: Automation & Scraping -->
         <div class="skill-card">
-          <div class="skill-icon">⚡</div>
-          <h3 class="skill-title">Automation & Web Scraping</h3>
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 class="skill-title">Automation & Web Scraping</h3>
+          </div>
           <div class="skill-tags">
             <span class="skill-tag">Playwright Async</span>
             <span class="skill-tag">Selenium</span>
@@ -76,43 +85,61 @@
           </div>
         </div>
 
+        <!-- Skill 2: Machine Learning & Data Science -->
         <div class="skill-card">
-          <div class="skill-icon">💻</div>
-          <h3 class="skill-title">Backend & Core Languages</h3>
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <h3 class="skill-title">ML & Data Science</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">Scikit-Learn</span>
+            <span class="skill-tag">Pandas & NumPy</span>
+            <span class="skill-tag">Feature Engineering</span>
+            <span class="skill-tag">Data Pipelines</span>
+            <span class="skill-tag">LLM Integrations</span>
+          </div>
+        </div>
+
+        <!-- Skill 3: Backend & Systems -->
+        <div class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="skill-title">Backend & Systems</h3>
+          </div>
           <div class="skill-tags">
             <span class="skill-tag">Python 3</span>
+            <span class="skill-tag">Scala</span>
             <span class="skill-tag">JavaScript / TS</span>
             <span class="skill-tag">FastAPI</span>
             <span class="skill-tag">Node.js</span>
             <span class="skill-tag">Rust</span>
-            <span class="skill-tag">Bash Scripting</span>
+            <span class="skill-tag">Bash</span>
           </div>
         </div>
 
+        <!-- Skill 4: Cloud, DevOps & Storage -->
         <div class="skill-card">
-          <div class="skill-icon">☁️</div>
-          <h3 class="skill-title">Cloud, DevOps & Storage</h3>
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <h3 class="skill-title">Cloud, DevOps & Storage</h3>
+          </div>
           <div class="skill-tags">
             <span class="skill-tag">GitHub Actions CI/CD</span>
             <span class="skill-tag">Docker</span>
             <span class="skill-tag">SQLite</span>
             <span class="skill-tag">PostgreSQL</span>
-            <span class="skill-tag">Pandas & Excel</span>
-            <span class="skill-tag">Linux Systems</span>
+            <span class="skill-tag">Excel / CSV Pipelines</span>
+            <span class="skill-tag">Linux</span>
           </div>
         </div>
 
-        <div class="skill-card">
-          <div class="skill-icon">🚨</div>
-          <h3 class="skill-title">Alerts & Integrations</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Discord Webhooks</span>
-            <span class="skill-tag">Telegram Bot API</span>
-            <span class="skill-tag">REST & GraphQL</span>
-            <span class="skill-tag">Automated Reports</span>
-            <span class="skill-tag">Webhook Dispatchers</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -135,17 +162,19 @@
 
         <!-- Project 1: DealRadar -->
         <div class="project-card" data-category="automation">
-          <div class="project-badge">⚡ 24/7 Cloud Automated</div>
           <div>
-            <h3 class="project-title">DealRadar</h3>
+            <div class="project-header">
+              <h3 class="project-title">DealRadar</h3>
+              <span class="project-badge">⚡ 24/7 Cloud Automated</span>
+            </div>
             <p class="project-description">
               Enterprise-grade asynchronous price intelligence and monitoring engine. Scrapes single-page applications, records historical trends in SQLite, and dispatches rich Discord/Telegram alerts.
             </p>
             <ul class="project-features">
-              <li>Headless browser automation with Playwright & anti-detection</li>
-              <li>24/7 automated cloud scanning via GitHub Actions CI/CD</li>
-              <li>Instant Discord & Telegram webhook deal alerts</li>
-              <li>Automated export to Excel (.xlsx) and CSV spreadsheets</li>
+              <li><span class="feature-bullet">▹</span> Headless browser automation with Playwright & anti-detection</li>
+              <li><span class="feature-bullet">▹</span> 24/7 automated cloud scanning via GitHub Actions CI/CD</li>
+              <li><span class="feature-bullet">▹</span> Instant Discord & Telegram webhook deal alerts</li>
+              <li><span class="feature-bullet">▹</span> Automated export to Excel (.xlsx) and CSV spreadsheets</li>
             </ul>
           </div>
           <div>
@@ -165,16 +194,18 @@
 
         <!-- Project 2: Banking Transaction Core -->
         <div class="project-card" data-category="fullstack">
-          <div class="project-badge">💳 Full-Stack</div>
           <div>
-            <h3 class="project-title">Banking Core Engine</h3>
+            <div class="project-header">
+              <h3 class="project-title">Banking Core Engine</h3>
+              <span class="project-badge">💳 Financial Ledger</span>
+            </div>
             <p class="project-description">
               Secure financial ledger and transaction processing system designed for reliable balance reconciliation, account history tracking, and input validation.
             </p>
             <ul class="project-features">
-              <li>Transactional ledger with balance validation</li>
-              <li>Comprehensive transaction history logs</li>
-              <li>Clean modular architecture with robust error handling</li>
+              <li><span class="feature-bullet">▹</span> Transactional ledger with balance validation</li>
+              <li><span class="feature-bullet">▹</span> Comprehensive transaction history logs</li>
+              <li><span class="feature-bullet">▹</span> Clean modular architecture with robust error handling</li>
             </ul>
           </div>
           <div>
@@ -182,7 +213,7 @@
               <span class="tech-tag">JavaScript</span>
               <span class="tech-tag">Node.js</span>
               <span class="tech-tag">REST API</span>
-              <span class="tech-tag">Data Validation</span>
+              <span class="tech-tag">Validation</span>
             </div>
             <div class="project-links">
               <a href="https://github.com/arandomguyalive/banking-main" target="_blank" class="btn btn-primary btn-sm">GitHub Repo ↗</a>
@@ -192,16 +223,18 @@
 
         <!-- Project 3: Movie Intelligence & Search App -->
         <div class="project-card" data-category="fullstack">
-          <div class="project-badge">🎬 Web App</div>
           <div>
-            <h3 class="project-title">Movie Search & Intel</h3>
+            <div class="project-header">
+              <h3 class="project-title">Movie Search & Intel</h3>
+              <span class="project-badge">🎬 Media App</span>
+            </div>
             <p class="project-description">
               Dynamic media exploration engine querying streaming APIs to provide instant search indexing, rating breakdowns, and responsive UI previews.
             </p>
             <ul class="project-features">
-              <li>Real-time API search integration with debounced input</li>
-              <li>Responsive dynamic card grid with responsive layout</li>
-              <li>Detailed metadata and poster rendering</li>
+              <li><span class="feature-bullet">▹</span> Real-time API search integration with debounced input</li>
+              <li><span class="feature-bullet">▹</span> Dynamic card grid with responsive layout</li>
+              <li><span class="feature-bullet">▹</span> Detailed metadata and poster rendering</li>
             </ul>
           </div>
           <div>
@@ -219,22 +252,24 @@
 
         <!-- Project 4: Upcoming / In Development -->
         <div class="project-card" data-category="automation" style="border-style: dashed;">
-          <div class="project-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">⚡ In Active Build</div>
           <div>
-            <h3 class="project-title">AI Lead Extractor & Enricher</h3>
+            <div class="project-header">
+              <h3 class="project-title">AI Lead Extractor</h3>
+              <span class="project-badge purple">⚡ In Active Build</span>
+            </div>
             <p class="project-description">
               Autonomous sales prospecting engine that extracts public company contacts, leverages LLMs to qualify leads, and outputs clean CRM-ready datasets.
             </p>
             <ul class="project-features">
-              <li>Automated domain & contact intelligence scraping</li>
-              <li>AI-powered lead qualification and scoring</li>
-              <li>Direct export to CSV, JSON, and Google Sheets</li>
+              <li><span class="feature-bullet">▹</span> Automated domain & contact intelligence scraping</li>
+              <li><span class="feature-bullet">▹</span> AI-powered lead qualification and scoring</li>
+              <li><span class="feature-bullet">▹</span> Direct export to CSV, JSON, and Google Sheets</li>
             </ul>
           </div>
           <div>
             <div class="project-tech-stack">
               <span class="tech-tag">Python</span>
-              <span class="tech-tag">AI / LLM API</span>
+              <span class="tech-tag">PyTorch / LLM</span>
               <span class="tech-tag">FastAPI</span>
               <span class="tech-tag">Pandas</span>
             </div>
@@ -253,11 +288,11 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">// Solutions</span>
-        <h2 class="section-title">How I Can Help Your Business</h2>
+        <h2 class="section-title">Client Engineering Services</h2>
       </div>
       <div class="services-grid">
         <div class="service-card">
-          <div class="service-num">01</div>
+          <div class="service-code">[01]</div>
           <h3 class="service-title">Custom Web Scraping & Pipelines</h3>
           <p class="service-desc">
             Extracting high-volume, structured data from complex dynamic websites, protected directories, and e-commerce platforms with automated Excel/CSV delivery.
@@ -265,7 +300,7 @@
         </div>
 
         <div class="service-card">
-          <div class="service-num">02</div>
+          <div class="service-code">[02]</div>
           <h3 class="service-title">24/7 Cloud Automation & Alerts</h3>
           <p class="service-desc">
             Setting up autonomous serverless bots and scheduled tasks on GitHub Actions, Render, or Docker that run around the clock and alert you via Discord/Telegram.
@@ -273,7 +308,7 @@
         </div>
 
         <div class="service-card">
-          <div class="service-num">03</div>
+          <div class="service-code">[03]</div>
           <h3 class="service-title">Full-Stack Web & API Development</h3>
           <p class="service-desc">
             Designing fast, responsive web applications, custom API integrations, and database-backed dashboards tailored to your business workflow.
@@ -311,6 +346,7 @@
                 <option value="Custom Web Scraping & Data Extraction">Custom Web Scraping & Data Extraction</option>
                 <option value="24/7 Cloud Automation & Alert Bot">24/7 Cloud Automation & Alert Bot</option>
                 <option value="Full-Stack Web / API Development">Full-Stack Web / API Development</option>
+                <option value="Machine Learning / Data Pipeline">Machine Learning / Data Pipeline</option>
                 <option value="Other Custom Engineering">Other Custom Engineering</option>
               </select>
             </div>
@@ -325,19 +361,19 @@
             <textarea id="project-details" rows="4" required placeholder="Describe your project, target websites, required data fields, and any specific deliverables..."></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-            🚀 Send Project Inquiry
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            🚀 Submit Project Inquiry
           </button>
         </form>
 
-        <div style="margin-top: 32px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+        <div style="margin-top: 32px; border-top: 1px solid var(--border-subtle); padding-top: 24px; text-align: center;">
           <div class="email-box" id="copy-email-btn" data-email="abhiroy.tcsdev@gmail.com" title="Click to copy email">
-            <span>📧</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <span>abhiroy.tcsdev@gmail.com</span>
-            <span style="font-size: 0.75rem; opacity: 0.7;">(Click to copy)</span>
+            <span style="font-size: 0.72rem; opacity: 0.7;">(Click to copy)</span>
           </div>
 
-          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 8px;">
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 6px;">
             <a href="mailto:abhiroy.tcsdev@gmail.com?subject=Project%20Inquiry%20from%20Portfolio" class="btn btn-secondary btn-sm">Direct Email ✉️</a>
             <a href="https://github.com/arandomguyalive" target="_blank" class="btn btn-secondary btn-sm">GitHub Profile ↗</a>
           </div>
@@ -350,7 +386,7 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>© 2026 arandomguyalive • Crafted with Cyber Cyan aesthetics • Hosted on GitHub Pages</p>
+      <p>© 2026 arandomguyalive • Autonomous Systems & Cyber Engineering • Hosted on GitHub Pages</p>
     </div>
   </footer>
 
