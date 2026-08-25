@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. Typing Animation
   const words = [
     "Python Automation & Scraping Architect",
+    "Custom Web & E-Commerce Engineer",
+    "WhatsApp & Growth Automation Architect",
     "Full-Stack Software Engineer",
     "24/7 Cloud Pipeline Developer",
     "Data Intelligence & Reverse Engineering"
