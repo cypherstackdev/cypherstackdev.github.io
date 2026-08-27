@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Kitchen Order Ticket (KOT) HUD | diner-flow</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            slate: {
+              850: '#151f32',
+              900: '#0f172a',
+              950: '#0b0f19'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 antialiased">
+
+  <!-- Kitchen HUD Navigation Header -->
+  <header class="glass-panel sticky top-0 z-40 border-b border-slate-800 px-4 sm:px-8 py-3.5 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      
+      <!-- Brand & Kitchen Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-rose-500 p-0.5 shadow-lg shadow-amber-500/20 flex-shrink-0">
+          <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-xl">
+            👨‍🍳
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-lg sm:text-xl text-white tracking-tight">
+              Live Kitchen Order Ticket (KOT) HUD
+            </h1>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Sync
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            The Amber Roast & Kitchen • Real-Time Order Stream
+          </p>
+        </div>
+      </div>
+
+      <!-- Controls & Actions -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        
+        <!-- Audio Chime Toggle -->
+        <button 
+          id="toggleAudioBtn"
+          class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400 text-xs font-bold hover:bg-slate-700 transition-colors">
+          🔊 Chime Active
+        </button>
+
+        <!-- Inject Mock Order for Testing -->
+        <button 
+          onclick="injectMockOrder()"
+          class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-extrabold shadow-md shadow-amber-500/20 transition-all flex items-center gap-1.5">
+          <span>⚡</span>
+          <span>+ Inject Test Order</span>
+        </button>
+
+        <!-- Customer Menu View link -->
+        <a 
+          href="index.html" 
+          target="_blank"
+          class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors">
+          🍽️ Customer Menu ➔
+        </a>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Metrics HUD Bar -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 pt-6 pb-2 w-full no-print">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+      
+      <!-- Active Orders -->
+      <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 block">Active KOTs</span>
+          <span id="metricActiveCount" class="text-2xl font-black text-amber-400">0</span>
+        </div>
+        <div class="text-2xl opacity-70">📋</div>
+      </div>
+
+      <!-- New Received -->
+      <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 block">New Received</span>
+          <span id="metricReceivedCount" class="text-2xl font-black text-amber-500">0</span>
+        </div>
+        <div class="text-2xl opacity-70">⏳</div>
+      </div>
+
+      <!-- In Cooking -->
+      <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 block">In Cooking</span>
+          <span id="metricPreparingCount" class="text-2xl font-black text-blue-400">0</span>
+        </div>
+        <div class="text-2xl opacity-70">🔥</div>
+      </div>
+
+      <!-- Ready to Serve -->
+      <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 block">Ready to Serve</span>
+          <span id="metricReadyCount" class="text-2xl font-black text-emerald-400">0</span>
+        </div>
+        <div class="text-2xl opacity-70">🔔</div>
+      </div>
+
+      <!-- Total Today Revenue -->
+      <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between col-span-2 sm:col-span-1">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-400 block">Total Pipeline</span>
+          <span id="metricTotalRevenue" class="text-2xl font-black text-white">₹0</span>
+        </div>
+        <div class="text-2xl opacity-70">💰</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Filter & Search Controls -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 py-4 w-full no-print">
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 bg-slate-900/60 p-3 rounded-2xl border border-slate-800">
+      
+      <!-- Filter Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
+        <button 
+          data-filter="active" 
+          onclick="setKitchenFilter('active')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20 flex-shrink-0">
+          All Active
+        </button>
+        <button 
+          data-filter="dine-in" 
+          onclick="setKitchenFilter('dine-in')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white bg-slate-900 border border-slate-800 flex-shrink-0">
+          🍽️ Dine-In Only
+        </button>
+        <button 
+          data-filter="takeaway" 
+          onclick="setKitchenFilter('takeaway')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white bg-slate-900 border border-slate-800 flex-shrink-0">
+          🛵 Takeaway
+        </button>
+        <button 
+          data-filter="received" 
+          onclick="setKitchenFilter('received')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white bg-slate-900 border border-slate-800 flex-shrink-0">
+          New
+        </button>
+        <button 
+          data-filter="preparing" 
+          onclick="setKitchenFilter('preparing')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white bg-slate-900 border border-slate-800 flex-shrink-0">
+          Preparing
+        </button>
+        <button 
+          data-filter="ready" 
+          onclick="setKitchenFilter('ready')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white bg-slate-900 border border-slate-800 flex-shrink-0">
+          Ready
+        </button>
+        <button 
+          data-filter="all" 
+          onclick="setKitchenFilter('all')"
+          class="kot-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-400 hover:text-white bg-slate-900 border border-slate-800 flex-shrink-0">
+          Full History
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative min-w-[240px]">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-500">
+          🔍
+        </span>
+        <input 
+          type="text" 
+          id="kitchenSearchInput" 
+          placeholder="Filter by Table #, Order ID..."
+          class="w-full bg-slate-950 border border-slate-800 text-xs sm:text-sm rounded-xl pl-9 pr-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KOT Tickets Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex-1 w-full">
+    <div id="kotGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Dynamically rendered KOT order tickets -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="kotEmptyState" class="hidden flex-col items-center justify-center text-center py-20 bg-slate-900/40 rounded-3xl border border-slate-800">
+      <span class="text-5xl mb-3">👨‍🍳</span>
+      <h3 class="text-xl font-bold text-white">All Kitchen Orders Clear!</h3>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-sm">
+        New orders placed on the customer QR menu will appear here in real-time with an audible bell chime.
+      </p>
+      <button 
+        onclick="injectMockOrder()"
+        class="mt-4 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg transition-all">
+        + Inject Test Order
+      </button>
+    </div>
+  </main>
+
+  <!-- Kitchen Toast Notifications -->
+  <div id="kitchenToastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/kitchen.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

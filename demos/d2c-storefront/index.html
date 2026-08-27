@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEO//VAULT — Ultra-Modern Cyber D2C Storefront Engine</title>
+  <meta name="description" content="Production-ready luxury cyber D2C headless e-commerce storefront with 1-click WhatsApp checkout, instant pincode delivery SLA checker, and Razorpay/UPI simulator.">
+  
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              black: '#0a0a0c',
+              dark: '#121216',
+              card: '#16161d',
+              border: '#272732',
+              purple: '#8b5cf6',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-cyber-black text-zinc-100 antialiased min-h-screen flex flex-col selection:bg-purple-600 selection:text-white bg-grid-cyber">
+
+  <!-- Toast Notification Root -->
+  <div id="toast-container"></div>
+
+  <!-- Announcement Bar / Ticker -->
+  <div class="bg-gradient-to-r from-purple-950/80 via-zinc-900/90 to-purple-950/80 border-b border-purple-500/20 py-2 overflow-hidden relative z-40 text-xs font-mono">
+    <div class="ticker-track flex items-center gap-12 whitespace-nowrap text-purple-200">
+      <span class="flex items-center gap-2">🔥 <b class="text-white">DROP 04 LIVE:</b> LIMITED RUN SILHOUETTES</span>
+      <span class="text-zinc-500">•</span>
+      <span class="flex items-center gap-2">⚡ USE CODE <span class="bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded border border-purple-500/40 font-bold">CYBER20</span> FOR 20% OFF</span>
+      <span class="text-zinc-500">•</span>
+      <span class="flex items-center gap-2">📦 <b class="text-emerald-400">FREE EXPRESS SHIPPING</b> ON ORDERS OVER ₹1,999</span>
+      <span class="text-zinc-500">•</span>
+      <span class="flex items-center gap-2">💬 1-CLICK INSTANT WHATSAPP CHECKOUT AVAILABLE</span>
+      <span class="text-zinc-500">•</span>
+      <span class="flex items-center gap-2">🔥 <b class="text-white">DROP 04 LIVE:</b> LIMITED RUN SILHOUETTES</span>
+      <span class="text-zinc-500">•</span>
+      <span class="flex items-center gap-2">⚡ USE CODE <span class="bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded border border-purple-500/40 font-bold">CYBER20</span> FOR 20% OFF</span>
+      <span class="text-zinc-500">•</span>
+      <span class="flex items-center gap-2">📦 <b class="text-emerald-400">FREE EXPRESS SHIPPING</b> ON ORDERS OVER ₹1,999</span>
+    </div>
+  </div>
+
+  <!-- Glassmorphic Navbar -->
+  <header class="sticky top-0 z-30 glass-panel border-b border-white/10 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group shrink-0 py-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-700 p-0.5 shadow-lg shadow-purple-600/30 group-hover:shadow-purple-600/60 transition-all">
+          <div class="w-full h-full bg-cyber-black rounded-[10px] flex items-center justify-center">
+            <span class="font-heading font-black text-xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">NV</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-heading font-extrabold text-lg tracking-wider text-white flex items-center gap-1">
+            NEO<span class="text-purple-400">//</span>VAULT
+          </span>
+          <span class="block text-[9px] font-mono tracking-widest text-zinc-400 uppercase -mt-1">D2C Cyber Lux</span>
+        </div>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+        <div class="relative w-full">
+          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400"></i>
+          <input 
+            type="text" 
+            id="main-search-input"
+            placeholder="Search drops, sneakers, hoodies, tech..." 
+            class="w-full pl-10 pr-4 py-2 rounded-xl bg-zinc-900/80 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all font-sans"
+          >
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Direct WhatsApp Support -->
+        <a 
+          href="https://wa.me/919876543210?text=Hi%20NEO%2F%2FVAULT%2C%20I%20have%20an%20inquiry%20regarding%20Drop%2004" 
+          target="_blank" 
+          class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/50 border border-emerald-500/40 text-emerald-300 text-xs font-semibold transition-all hover:scale-105"
+          title="Direct WhatsApp Support"
+        >
+          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+          <span class="font-mono">Concierge</span>
+        </a>
+
+        <!-- Wishlist Button -->
+        <button 
+          onclick="openWishlistDrawer()" 
+          class="p-2.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 border border-white/10 hover:border-purple-500/50 text-zinc-300 hover:text-white transition-all relative"
+          title="Wishlist"
+        >
+          <i data-lucide="heart" class="w-5 h-5"></i>
+          <span class="wishlist-count-badge hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-rose-600 text-white text-[10px] font-bold font-mono flex items-center justify-center ring-2 ring-cyber-black">
+            0
+          </span>
+        </button>
+
+        <!-- Cart Drawer Button -->
+        <button 
+          onclick="openCartDrawer()" 
+          class="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-purple-600/30 transition-all relative group hover:scale-[1.02]"
+        >
+          <div class="relative">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <span class="cart-count-badge hidden absolute -top-2 -right-2.5 w-4 h-4 rounded-full bg-cyan-400 text-black text-[9px] font-black font-mono flex items-center justify-center">
+              0
+            </span>
+          </div>
+          <span class="hidden sm:inline font-mono cart-total-badge">₹0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="md:hidden px-4 pb-3">
+      <div class="relative w-full">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400"></i>
+        <input 
+          type="text" 
+          placeholder="Search products..." 
+          oninput="handleSearch(this.value)"
+          class="w-full pl-9 pr-3 py-2 rounded-lg bg-zinc-900 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500"
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24 bg-radial-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-900/30 border border-purple-500/40 text-purple-300 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+            <span>DIRECT-TO-CONSUMER DROP 04 IS LIVE</span>
+          </div>
+
+          <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1]">
+            CYBER-AESTHETIC <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-indigo-400">
+              MEETS LUXURY PERFORMANCE.
+            </span>
+          </h1>
+
+          <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Zero retail markup. Premium aerospace materials, limited runs, and frictionless checkout via <b>1-Click WhatsApp Direct</b> or Instant UPI.
+          </p>
+
+          <!-- CTA Group -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#catalog" class="cyber-glow-btn px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-heading font-bold text-sm shadow-xl shadow-purple-600/30 flex items-center gap-2 transition-all">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              <span>Explore Drop 04</span>
+            </a>
+
+            <button onclick="triggerWhatsAppCheckout()" class="wa-pulse-btn px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold text-sm flex items-center gap-2 border border-emerald-400/40 transition-all">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>1-Click WhatsApp Order</span>
+            </button>
+          </div>
+
+          <!-- Social Proof & Guarantees -->
+          <div class="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-zinc-400 font-mono">
+            <div class="flex items-center gap-2">
+              <div class="flex text-amber-400">★★★★★</div>
+              <span class="text-white font-bold">4.9 / 5</span>
+              <span>(1,800+ Verified Reviews)</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+              <span>100% Authentic Guaranteed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual Banner -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md rounded-3xl overflow-hidden glass-panel p-2 shadow-2xl shadow-purple-950/50 group">
+            <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-zinc-900">
+              <img 
+                src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=1000&auto=format&fit=crop" 
+                alt="Featured Drop" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              >
+              
+              <!-- Floating Card Overlay -->
+              <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-cyber-black/85 backdrop-blur-md border border-white/10 shadow-xl flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] font-mono uppercase text-purple-400 font-bold">LIMITED EDITION</span>
+                  <h4 class="font-heading font-bold text-sm text-white">CYBER-RUNNER 2099 V2</h4>
+                  <div class="flex items-center gap-2 mt-0.5">
+                    <span class="font-mono font-bold text-sm text-emerald-400">₹6,499</span>
+                    <span class="font-mono text-xs text-zinc-500 line-through">₹11,999</span>
+                  </div>
+                </div>
+                <button onclick="openProductModal('nv-snk-01')" class="p-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-lg">
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Value Propositions Bar -->
+  <section class="border-y border-white/10 bg-zinc-950/60 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-900/30 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+            <i data-lucide="truck" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">24-48H Dispatch</h4>
+            <p class="text-[11px] text-zinc-400">Express delivery across India</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-900/30 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">7-Day Easy Returns</h4>
+            <p class="text-[11px] text-zinc-400">Doorstep pickup & exchange</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-900/30 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">Direct Craftsmanship</h4>
+            <p class="text-[11px] text-zinc-400">100% authentic materials</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-900/30 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+            <i data-lucide="credit-card" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">UPI & COD Available</h4>
+            <p class="text-[11px] text-zinc-400">Zero surcharge checkout</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Product Catalog Section -->
+  <section id="catalog" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 w-full">
+    
+    <!-- Section Header & Filter Toolbar -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-mono text-purple-400 uppercase tracking-widest mb-1 font-bold">
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+          CURATED DROPS
+        </div>
+        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white">
+          THE VAULT COLLECTION
+        </h2>
+      </div>
+
+      <!-- Controls: Sort & Filter Count -->
+      <div class="flex items-center gap-3 self-start md:self-auto">
+        <span id="catalog-products-count" class="text-xs font-mono text-zinc-400 hidden sm:inline">
+          Showing 12 items
+        </span>
+        <div class="relative">
+          <select 
+            onchange="handleSort(this.value)" 
+            class="appearance-none pl-3.5 pr-8 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-zinc-200 focus:outline-none focus:border-purple-500 font-mono cursor-pointer"
+          >
+            <option value="featured">Sort: Featured Drops</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="bestseller">Best Sellers</option>
+            <option value="rating">Highest Rated</option>
+            <option value="newest">New Drops</option>
+          </select>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-zinc-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Pills Tabs -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+      <button 
+        onclick="filterCategory('all')" 
+        data-category="all"
+        class="filter-tab active px-4 py-2 rounded-xl text-xs font-heading font-bold border border-white/10 transition-all shrink-0 bg-zinc-900 text-zinc-300 hover:border-purple-500"
+      >
+        All Silhouettes
+      </button>
+      <button 
+        onclick="filterCategory('Sneakers')" 
+        data-category="Sneakers"
+        class="filter-tab px-4 py-2 rounded-xl text-xs font-heading font-bold border border-white/10 transition-all shrink-0 bg-zinc-900 text-zinc-300 hover:border-purple-500"
+      >
+        👟 Footwear & Sneakers
+      </button>
+      <button 
+        onclick="filterCategory('Apparel')" 
+        data-category="Apparel"
+        class="filter-tab px-4 py-2 rounded-xl text-xs font-heading font-bold border border-white/10 transition-all shrink-0 bg-zinc-900 text-zinc-300 hover:border-purple-500"
+      >
+        👕 Cyber Apparel & Hoodies
+      </button>
+      <button 
+        onclick="filterCategory('Tech Accessories')" 
+        data-category="Tech Accessories"
+        class="filter-tab px-4 py-2 rounded-xl text-xs font-heading font-bold border border-white/10 transition-all shrink-0 bg-zinc-900 text-zinc-300 hover:border-purple-500"
+      >
+        ⚡ Tech & EDC Accessories
+      </button>
+      <button 
+        onclick="filterCategory('Wellness')" 
+        data-category="Wellness"
+        class="filter-tab px-4 py-2 rounded-xl text-xs font-heading font-bold border border-white/10 transition-all shrink-0 bg-zinc-900 text-zinc-300 hover:border-purple-500"
+      >
+        🧘 Recovery & Wellness
+      </button>
+    </div>
+
+    <!-- Dynamic Product Grid -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Injected via JavaScript -->
+    </div>
+
+  </section>
+
+  <!-- D2C Comparison: Middlemen vs NEO//VAULT -->
+  <section class="py-16 bg-zinc-950/80 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider">RADICAL TRANSPARENCY</span>
+        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white mt-1">
+          Traditional Mall Brands vs. Direct-To-Consumer
+        </h2>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-2">
+          Why pay 4x inflated retail prices for commercial mall rent and distributor markups?
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Traditional Retail Card -->
+        <div class="p-6 rounded-2xl bg-zinc-900/40 border border-rose-500/20 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-white/5">
+            <h3 class="font-heading font-bold text-zinc-300 text-base">Traditional Retail Markup</h3>
+            <span class="text-xs font-mono text-rose-400 font-bold bg-rose-950/60 px-2 py-0.5 rounded border border-rose-500/30">400% MARKUP</span>
+          </div>
+          <ul class="space-y-3 text-xs text-zinc-400">
+            <li class="flex items-start gap-2">
+              <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+              <span>High-street showroom rent added to garment price</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+              <span>Wholesale distributor cut & licensing fees</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+              <span>Mass-market synthetic fabrics to maximize profit margins</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- NEO//VAULT D2C Card -->
+        <div class="p-6 rounded-2xl bg-purple-950/20 border border-purple-500/40 space-y-4 glow-purple">
+          <div class="flex items-center justify-between pb-3 border-b border-purple-500/20">
+            <h3 class="font-heading font-bold text-white text-base">NEO//VAULT Direct Engine</h3>
+            <span class="text-xs font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">FAIR VALUE</span>
+          </div>
+          <ul class="space-y-3 text-xs text-zinc-300">
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span>Direct-from-artisan manufacturing with 450 GSM fabrics & titanium alloys</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span>Zero retail middleman cuts passed directly as savings to you</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span>Direct WhatsApp concierge support and instant exchange service</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verified Buyer Testimonials -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider">COMMUNITY VOICES</span>
+      <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white mt-1">
+        Trusted by 15,000+ D2C Enthusiasts
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="p-6 rounded-2xl glass-card space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex text-amber-400 text-sm">★★★★★</div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30 flex items-center gap-1">
+            <i data-lucide="check" class="w-3 h-3"></i> Verified Buyer
+          </span>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed italic">
+          "The Cyber-Runner 2099 sneakers are mindblowing. Delivered to Indiranagar, Bengaluru in under 24 hours. The WhatsApp checkout took literally 10 seconds."
+        </p>
+        <div class="pt-3 border-t border-white/5 flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center font-bold text-xs text-white">AM</div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">Aarav Mehta</h4>
+            <p class="text-[10px] text-zinc-500">Bengaluru • Ordered Drop 04</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl glass-card space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex text-amber-400 text-sm">★★★★★</div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30 flex items-center gap-1">
+            <i data-lucide="check" class="w-3 h-3"></i> Verified Buyer
+          </span>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed italic">
+          "450 GSM hoodie feels like a heavy blanket in winter. Best heavyweight streetwear brand in India right now without question."
+        </p>
+        <div class="pt-3 border-t border-white/5 flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-cyan-600 flex items-center justify-center font-bold text-xs text-white">RS</div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">Riya Sharma</h4>
+            <p class="text-[10px] text-zinc-500">Mumbai • Ordered Quantum Hoodie</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl glass-card space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex text-amber-400 text-sm">★★★★★</div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30 flex items-center gap-1">
+            <i data-lucide="check" class="w-3 h-3"></i> Verified Buyer
+          </span>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed italic">
+          "Titanium 100W GaN power bank charged my MacBook Pro on a flight from Delhi to Goa. Incredible engineering and display."
+        </p>
+        <div class="pt-3 border-t border-white/5 flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-xs text-white">VT</div>
+          <div>
+            <h4 class="font-heading font-bold text-xs text-white">Vikramaditya T.</h4>
+            <p class="text-[10px] text-zinc-500">New Delhi • Ordered GaN Bank</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="py-16 bg-zinc-950/50 border-t border-white/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider">FREQUENTLY ASKED</span>
+        <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white mt-1">
+          Everything You Need To Know
+        </h2>
+      </div>
+
+      <div class="space-y-3">
+        
+        <div class="rounded-xl border border-white/10 bg-zinc-900/60 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full px-5 py-4 text-left flex items-center justify-between text-sm font-heading font-bold text-white hover:text-purple-400 transition-colors">
+            <span>How does the 1-Click WhatsApp Direct Checkout work?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-4 h-4 transition-transform text-zinc-400"></i>
+          </button>
+          <div class="faq-answer hidden px-5 pb-4 text-xs text-zinc-400 leading-relaxed border-t border-white/5 pt-3">
+            When you click "1-Click WhatsApp Checkout", our engine compiles your selected items, variants, promo discounts, and delivery address into a ready-to-send WhatsApp order payload. You can confirm your order, ask sizing questions, and receive live dispatch tracking directly from our brand concierge team.
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-zinc-900/60 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full px-5 py-4 text-left flex items-center justify-between text-sm font-heading font-bold text-white hover:text-purple-400 transition-colors">
+            <span>What are the delivery timelines across India?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-4 h-4 transition-transform text-zinc-400"></i>
+          </button>
+          <div class="faq-answer hidden px-5 pb-4 text-xs text-zinc-400 leading-relaxed border-t border-white/5 pt-3">
+            Metro cities (Bengaluru, Mumbai, Delhi/NCR, Hyderabad, Pune, Chennai) receive <b>24-48 Hours Express Dispatch</b>. Non-metro and Tier-2/3 regions typically arrive in 3-4 business days via Bluedart and Delhivery Air Express.
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-zinc-900/60 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full px-5 py-4 text-left flex items-center justify-between text-sm font-heading font-bold text-white hover:text-purple-400 transition-colors">
+            <span>Is Cash on Delivery (COD) supported?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-4 h-4 transition-transform text-zinc-400"></i>
+          </button>
+          <div class="faq-answer hidden px-5 pb-4 text-xs text-zinc-400 leading-relaxed border-t border-white/5 pt-3">
+            Yes! COD is available for over 19,000+ Indian PIN codes. We also offer instant UPI discounts (up to 5% extra) on prepaid orders.
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-zinc-900/60 overflow-hidden">
+          <button onclick="toggleFaq(this)" class="w-full px-5 py-4 text-left flex items-center justify-between text-sm font-heading font-bold text-white hover:text-purple-400 transition-colors">
+            <span>What is your 7-Day Exchange & Return Policy?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-4 h-4 transition-transform text-zinc-400"></i>
+          </button>
+          <div class="faq-answer hidden px-5 pb-4 text-xs text-zinc-400 leading-relaxed border-t border-white/5 pt-3">
+            We offer hassle-free size exchanges and doorstep pickups within 7 days of receiving your package. If the size doesn't fit like a glove, simply message us on WhatsApp with your Order ID and we'll swap it instantly.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VIP Drop Newsletter Signup -->
+  <section class="py-16 border-t border-white/10 relative overflow-hidden bg-radial-gradient">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/40 border border-purple-500/40 text-purple-300 text-xs font-mono mb-3">
+        🎁 INSTANT ₹500 VOUCHER
+      </span>
+      <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+        JOIN THE VIP DROP SYNDICATE
+      </h2>
+      <p class="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto mt-2">
+        Get 30-minute early access to numbered drops and receive coupon <b class="text-purple-400 font-mono">NEODROP500</b> on signup.
+      </p>
+
+      <form onsubmit="event.preventDefault(); showToast('🎉 Welcome to the Syndicate! Use code NEODROP500 at checkout.', 'success', 'gift');" class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+        <input 
+          type="email" 
+          placeholder="Enter your email or phone..." 
+          required
+          class="w-full sm:w-auto flex-1 px-4 py-3 rounded-xl bg-zinc-900 border border-white/15 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 font-sans"
+        >
+        <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-heading font-bold text-xs shadow-lg shadow-purple-600/30 transition-all">
+          Unlock ₹500
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-950 border-t border-white/10 pt-12 pb-8 text-zinc-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-purple-600 flex items-center justify-center font-heading font-black text-white text-xs">NV</div>
+            <span class="font-heading font-bold text-base text-white">NEO//VAULT</span>
+          </div>
+          <p class="text-zinc-500 text-[11px] leading-relaxed">
+            Headless Cyber D2C Storefront Engine. Precision-engineered streetwear, tech EDC, and wellness silhouettes for modern creators.
+          </p>
+        </div>
+
+        <!-- Collections -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-xs uppercase tracking-wider mb-3">Collections</h4>
+          <ul class="space-y-2 text-[11px]">
+            <li><a href="#catalog" onclick="filterCategory('Sneakers')" class="hover:text-purple-400 transition-colors">Futuristic Footwear</a></li>
+            <li><a href="#catalog" onclick="filterCategory('Apparel')" class="hover:text-purple-400 transition-colors">450 GSM Heavyweight Apparel</a></li>
+            <li><a href="#catalog" onclick="filterCategory('Tech Accessories')" class="hover:text-purple-400 transition-colors">Titanium EDC & Tech</a></li>
+            <li><a href="#catalog" onclick="filterCategory('Wellness')" class="hover:text-purple-400 transition-colors">Deep Recovery Tech</a></li>
+          </ul>
+        </div>
+
+        <!-- Customer Care -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-xs uppercase tracking-wider mb-3">Customer Support</h4>
+          <ul class="space-y-2 text-[11px]">
+            <li><a href="https://wa.me/919876543210" target="_blank" class="hover:text-emerald-400 flex items-center gap-1.5"><i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i> WhatsApp Concierge</a></li>
+            <li><a href="#catalog" class="hover:text-purple-400">Track Order Status</a></li>
+            <li><a href="#catalog" class="hover:text-purple-400">7-Day Return / Exchange Portal</a></li>
+            <li><a href="#catalog" class="hover:text-purple-400">Size & Fitting Guide</a></li>
+          </ul>
+        </div>
+
+        <!-- Payment Security Badges -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-xs uppercase tracking-wider mb-3">100% Secure Checkout</h4>
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+            <span class="p-2 rounded bg-zinc-900 border border-white/10 text-zinc-300 font-bold">UPI / GPay</span>
+            <span class="p-2 rounded bg-zinc-900 border border-white/10 text-zinc-300 font-bold">PhonePe</span>
+            <span class="p-2 rounded bg-zinc-900 border border-white/10 text-zinc-300 font-bold">Paytm</span>
+            <span class="p-2 rounded bg-zinc-900 border border-white/10 text-zinc-300 font-bold">RuPay</span>
+            <span class="p-2 rounded bg-zinc-900 border border-white/10 text-zinc-300 font-bold">Razorpay</span>
+            <span class="p-2 rounded bg-zinc-900 border border-white/10 text-zinc-300 font-bold">COD</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
+        <div>
+          © 2026 NEO//VAULT D2C Storefront Pro. All Rights Reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-purple-400">Privacy Policy</a>
+          <a href="#" class="hover:text-purple-400">Terms of Service</a>
+          <a href="#" class="hover:text-purple-400">Shipping Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS & DRAWERS ==================== -->
+
+  <!-- Slide-out Cart Drawer -->
+  <div id="cart-drawer-backdrop" onclick="closeCartDrawer()" class="drawer-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm z-50"></div>
+  <aside id="cart-drawer-content" class="drawer-content fixed top-0 right-0 bottom-0 w-full max-w-md bg-cyber-dark border-l border-white/10 z-50 flex flex-col shadow-2xl">
+    
+    <!-- Drawer Header -->
+    <div class="p-4 border-b border-white/10 flex items-center justify-between bg-zinc-950/60">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-purple-400"></i>
+        <h3 class="font-heading font-bold text-sm text-white">Your Cart (<span class="cart-count-badge">0</span>)</h3>
+      </div>
+      <button onclick="closeCartDrawer()" class="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress -->
+    <div class="p-3.5 bg-zinc-900/60 border-b border-white/5">
+      <div class="flex items-center justify-between text-xs text-zinc-300 mb-1.5" id="free-shipping-text">
+        Add items to unlock <span class="text-purple-400 font-bold">FREE Express Delivery</span> over ₹1,999
+      </div>
+      <div class="w-full bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+        <div id="free-shipping-progress" class="bg-purple-600 h-full transition-all duration-300" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Scrollable List -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cart-items-container">
+      <!-- Injected dynamically -->
+    </div>
+
+    <!-- Cart Empty State -->
+    <div id="cart-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-16 h-16 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-500 mb-4">
+        <i data-lucide="shopping-cart" class="w-8 h-8"></i>
+      </div>
+      <h4 class="font-heading font-bold text-base text-white">Your cart is empty</h4>
+      <p class="text-xs text-zinc-400 mt-1 max-w-xs">Explore Drop 04 limited silhouettes and discover the future of D2C fashion.</p>
+      <button onclick="closeCartDrawer()" class="mt-5 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold">
+        Start Shopping
+      </button>
+    </div>
+
+    <!-- Cart Drawer Footer -->
+    <div id="cart-drawer-footer" class="p-4 border-t border-white/10 bg-zinc-950 space-y-3">
+      
+      <!-- Promo Code Box -->
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <i data-lucide="tag" class="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input 
+            type="text" 
+            id="promo-input"
+            placeholder="Promo code (e.g. CYBER20)" 
+            class="w-full pl-8 pr-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white placeholder-zinc-500 font-mono uppercase focus:outline-none focus:border-purple-500"
+          >
+        </div>
+        <button onclick="applyPromoCode()" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-purple-600 text-zinc-200 hover:text-white text-xs font-bold font-mono transition-colors">
+          Apply
+        </button>
+      </div>
+
+      <!-- Quick Promo Badges -->
+      <div class="flex items-center gap-1.5 text-[10px] font-mono">
+        <span class="text-zinc-500">Try:</span>
+        <button onclick="applyPromoCode('CYBER20')" class="px-2 py-0.5 rounded bg-purple-950/60 border border-purple-500/30 text-purple-300 hover:bg-purple-900/60 transition-colors">CYBER20 (-20%)</button>
+        <button onclick="applyPromoCode('NEODROP500')" class="px-2 py-0.5 rounded bg-purple-950/60 border border-purple-500/30 text-purple-300 hover:bg-purple-900/60 transition-colors">NEODROP500 (-₹500)</button>
+      </div>
+
+      <!-- Calculations -->
+      <div class="space-y-1.5 pt-2 border-t border-white/5 text-xs">
+        <div class="flex items-center justify-between text-zinc-400">
+          <span>Subtotal</span>
+          <span id="cart-subtotal-val" class="font-mono text-white font-semibold">₹0</span>
+        </div>
+        <div id="cart-discount-row" class="hidden flex items-center justify-between text-emerald-400">
+          <span class="flex items-center gap-1">Discount <span id="cart-applied-promo-tag" class="text-[10px] font-mono"></span></span>
+          <span id="cart-discount-val" class="font-mono font-bold">-₹0</span>
+        </div>
+        <div class="flex items-center justify-between text-zinc-400">
+          <span>Estimated Express Delivery</span>
+          <span id="cart-shipping-val" class="font-mono text-emerald-400 font-bold">FREE</span>
+        </div>
+        <div class="flex items-center justify-between text-sm font-bold text-white pt-2 border-t border-white/5">
+          <span>Total Amount</span>
+          <span id="cart-grandtotal-val" class="font-mono text-base text-purple-400">₹0</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="grid grid-cols-1 gap-2 pt-1">
+        <button onclick="openCheckoutModal()" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-heading font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-all glow-purple">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Proceed to Pay (UPI / Card / COD)</span>
+        </button>
+
+        <button onclick="triggerWhatsAppCheckout()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold text-xs flex items-center justify-center gap-2 border border-emerald-400/30 transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>1-Click WhatsApp Direct Checkout</span>
+        </button>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- Slide-out Wishlist Drawer -->
+  <div id="wishlist-drawer-backdrop" onclick="closeWishlistDrawer()" class="drawer-backdrop fixed inset-0 bg-black/80 backdrop-blur-sm z-50"></div>
+  <aside id="wishlist-drawer-content" class="drawer-content fixed top-0 right-0 bottom-0 w-full max-w-md bg-cyber-dark border-l border-white/10 z-50 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-white/10 flex items-center justify-between bg-zinc-950/60">
+      <div class="flex items-center gap-2">
+        <i data-lucide="heart" class="w-5 h-5 text-rose-500"></i>
+        <h3 class="font-heading font-bold text-sm text-white">Your Saved Drops (<span class="wishlist-count-badge">0</span>)</h3>
+      </div>
+      <button onclick="closeWishlistDrawer()" class="p-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="wishlist-items-container">
+      <!-- Injected dynamically -->
+    </div>
+
+    <div id="wishlist-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-16 h-16 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-500 mb-4">
+        <i data-lucide="heart" class="w-8 h-8"></i>
+      </div>
+      <h4 class="font-heading font-bold text-base text-white">No saved drops yet</h4>
+      <p class="text-xs text-zinc-400 mt-1 max-w-xs">Tap the heart icon on any silhouette to save it for later.</p>
+    </div>
+  </aside>
+
+  <!-- Product Detail & Quick View Modal -->
+  <div id="product-detail-modal" class="modal-overlay fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6">
+    <div class="modal-container bg-cyber-dark border border-white/15 rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/70 hover:bg-black text-zinc-300 hover:text-white transition-all border border-white/10">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8">
+        
+        <!-- Left: Image Gallery -->
+        <div class="md:col-span-6 space-y-3">
+          <div class="aspect-square rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 relative">
+            <img id="modal-main-image" src="" alt="Product Preview" class="w-full h-full object-cover">
+            <button id="modal-wishlist-btn" onclick="toggleWishlist(STATE.activeProductModal?.id)" class="absolute top-3 right-3 p-2.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white transition-all">
+              <i data-lucide="heart" class="w-5 h-5"></i>
+            </button>
+          </div>
+          <div id="modal-thumbnails-container" class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+            <!-- Thumbs -->
+          </div>
+        </div>
+
+        <!-- Right: Details & Purchase Actions -->
+        <div class="md:col-span-6 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span id="modal-product-category" class="text-purple-400 font-bold uppercase tracking-wider">CATEGORY</span>
+              <span id="modal-product-stock" class="text-amber-400 font-semibold">⚡ Stock Low</span>
+            </div>
+
+            <h2 id="modal-product-title" class="font-heading font-extrabold text-xl sm:text-2xl text-white mt-1 leading-tight"></h2>
+            <p id="modal-product-subtitle" class="text-xs text-zinc-400 mt-1"></p>
+
+            <div class="flex items-center gap-2 text-xs mt-2 text-amber-400 font-mono">
+              <span id="modal-product-rating">4.9 ★ (142 reviews)</span>
+            </div>
+
+            <!-- Price -->
+            <div class="flex items-baseline gap-3 mt-4">
+              <span id="modal-product-price" class="font-mono font-extrabold text-2xl text-white"></span>
+              <span id="modal-product-mrp" class="font-mono text-sm text-zinc-500 line-through"></span>
+              <span id="modal-product-discount" class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded"></span>
+            </div>
+
+            <!-- Description -->
+            <p id="modal-product-desc" class="text-xs text-zinc-300 mt-3 leading-relaxed border-t border-white/5 pt-3"></p>
+
+            <!-- Size Selector -->
+            <div class="mt-4">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="text-zinc-300 font-bold">Select Size</span>
+                <span class="text-[11px] text-purple-400 cursor-pointer hover:underline font-mono">Size Guide</span>
+              </div>
+              <div id="modal-sizes-container" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Color Swatches -->
+            <div class="mt-4">
+              <span class="text-zinc-300 font-bold text-xs block mb-2">Select Colorway</span>
+              <div id="modal-colors-container" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Pincode Checker Box -->
+            <div class="mt-4 p-3 rounded-xl bg-zinc-900/80 border border-white/10 space-y-2">
+              <div class="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-purple-400"></i>
+                <span>Check Delivery SLA & COD Eligibility</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <input 
+                  type="text" 
+                  id="modal-pincode-input" 
+                  maxlength="6"
+                  placeholder="Enter 6-digit PIN code (e.g. 560001)" 
+                  class="flex-1 px-3 py-1.5 rounded-lg bg-zinc-950 border border-white/10 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-purple-500"
+                >
+                <button onclick="checkPincode(document.getElementById('modal-pincode-input').value)" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold font-mono">
+                  Check
+                </button>
+              </div>
+              <div id="pincode-result" class="hidden"></div>
+            </div>
+
+            <!-- Specifications List -->
+            <div class="mt-4 pt-3 border-t border-white/5">
+              <span class="text-zinc-400 font-mono uppercase text-[10px] font-bold tracking-wider block mb-1.5">TECH SPECS & FABRIC</span>
+              <div id="modal-specs-container" class="space-y-1"></div>
+            </div>
+
+            <!-- Verified Reviews Section -->
+            <div class="mt-4 pt-3 border-t border-white/5">
+              <span class="text-zinc-400 font-mono uppercase text-[10px] font-bold tracking-wider block mb-1.5">VERIFIED BUYER FEEDBACK</span>
+              <div id="modal-reviews-container" class="space-y-2 max-h-32 overflow-y-auto pr-1"></div>
+            </div>
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="space-y-2 pt-4 border-t border-white/10">
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="addModalProductToCart()" class="w-full py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-white/10 hover:border-purple-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                <span>Add To Cart</span>
+              </button>
+              <button onclick="buyModalProductNow()" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-all glow-purple">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                <span>Instant Buy Now</span>
+              </button>
+            </div>
+            <button onclick="inquireProductOnWhatsApp()" class="w-full py-2.5 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/40 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+              <span>Inquire / Buy on WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout & Razorpay / UPI Payment Simulator Modal -->
+  <div id="checkout-modal" class="modal-overlay fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6">
+    <div class="modal-container bg-cyber-dark border border-white/15 rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 p-2 rounded-full bg-black/70 hover:bg-black text-zinc-300 hover:text-white transition-all border border-white/10">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-2 pb-4 border-b border-white/10">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center text-white">
+          <i data-lucide="shield-check" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-base text-white">Checkout & Instant Payment</h3>
+          <p class="text-[11px] text-zinc-400">Secured with 256-bit encryption (Razorpay / UPI Sandbox)</p>
+        </div>
+      </div>
+
+      <form id="checkout-form" onsubmit="simulatePaymentSubmission(event)" class="mt-4 space-y-4">
+        
+        <!-- Step 1: Customer Details -->
+        <div>
+          <h4 class="text-xs font-bold text-zinc-300 uppercase font-mono tracking-wider mb-2">1. Shipping Details</h4>
+          <div class="space-y-2.5">
+            <div>
+              <label class="block text-[11px] text-zinc-400 mb-1">Full Name</label>
+              <input type="text" name="fullName" value="Aarav Sharma" required class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500 font-sans">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] text-zinc-400 mb-1">WhatsApp / Mobile</label>
+                <input type="tel" name="phone" value="+91 98765 43210" required class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500 font-mono">
+              </div>
+              <div>
+                <label class="block text-[11px] text-zinc-400 mb-1">Email Address</label>
+                <input type="email" name="email" value="aarav.sharma@example.com" required class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500 font-sans">
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] text-zinc-400 mb-1">Street Address / Apartment</label>
+              <input type="text" name="address" value="402, Cyber Heights, Indiranagar 100ft Rd" required class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] text-zinc-400 mb-1">City / State</label>
+                <input type="text" name="city" value="Bengaluru, KA" required class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500">
+              </div>
+              <div>
+                <label class="block text-[11px] text-zinc-400 mb-1">PIN Code</label>
+                <input type="text" name="pincode" value="560001" required maxlength="6" class="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500 font-mono">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Payment Method -->
+        <div class="pt-3 border-t border-white/10">
+          <h4 class="text-xs font-bold text-zinc-300 uppercase font-mono tracking-wider mb-2">2. Payment Method</h4>
+          
+          <div class="space-y-2">
+            <!-- UPI Option -->
+            <label class="flex items-center justify-between p-3 rounded-xl bg-zinc-900/80 border border-purple-500/40 cursor-pointer hover:border-purple-500 transition-all">
+              <div class="flex items-center gap-2.5">
+                <input type="radio" name="paymentMethod" value="upi" checked class="text-purple-600 focus:ring-0">
+                <div>
+                  <span class="text-xs font-bold text-white block">Instant UPI (GPay / PhonePe / Paytm / QR)</span>
+                  <span class="text-[10px] text-emerald-400">⚡ Instant 0% transaction fee</span>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-purple-400">FASTEST</span>
+            </label>
+
+            <!-- Card Option -->
+            <label class="flex items-center justify-between p-3 rounded-xl bg-zinc-900/50 border border-white/10 cursor-pointer hover:border-purple-500/40 transition-all">
+              <div class="flex items-center gap-2.5">
+                <input type="radio" name="paymentMethod" value="card" class="text-purple-600 focus:ring-0">
+                <div>
+                  <span class="text-xs font-bold text-white block">Credit / Debit Card</span>
+                  <span class="text-[10px] text-zinc-400">Visa, Mastercard, RuPay</span>
+                </div>
+              </div>
+              <i data-lucide="credit-card" class="w-4 h-4 text-zinc-400"></i>
+            </label>
+
+            <!-- COD Option -->
+            <label class="flex items-center justify-between p-3 rounded-xl bg-zinc-900/50 border border-white/10 cursor-pointer hover:border-purple-500/40 transition-all">
+              <div class="flex items-center gap-2.5">
+                <input type="radio" name="paymentMethod" value="cod" class="text-purple-600 focus:ring-0">
+                <div>
+                  <span class="text-xs font-bold text-white block">Cash on Delivery (COD)</span>
+                  <span class="text-[10px] text-zinc-400">Pay cash upon doorstep arrival</span>
+                </div>
+              </div>
+              <i data-lucide="banknote" class="w-4 h-4 text-zinc-400"></i>
+            </label>
+          </div>
+        </div>
+
+        <!-- Total & Submit -->
+        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] text-zinc-400 block">Total Payable:</span>
+            <span id="checkout-summary-total" class="font-mono font-extrabold text-xl text-purple-400">₹0</span>
+          </div>
+          <button type="submit" id="pay-submit-btn" class="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-heading font-bold text-xs shadow-lg shadow-purple-600/30 flex items-center gap-2 transition-all glow-purple">
+            <i data-lucide="lock" class="w-4 h-4"></i>
+            <span>Complete Order Now</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Success Modal -->
+  <div id="order-success-modal" class="modal-overlay fixed inset-0 bg-black/90 backdrop-blur-lg z-50 flex items-center justify-center p-4 sm:p-6">
+    <div class="modal-container bg-cyber-dark border border-emerald-500/30 rounded-3xl max-w-md w-full shadow-2xl p-6 sm:p-8 text-center relative glow-emerald">
+      
+      <div class="w-16 h-16 rounded-full bg-emerald-950/80 border border-emerald-500/50 flex items-center justify-center text-emerald-400 mx-auto mb-4">
+        <i data-lucide="check-circle" class="w-8 h-8"></i>
+      </div>
+
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
+        ORDER CONFIRMED & DISPATCH READY
+      </span>
+
+      <h3 class="font-heading font-extrabold text-2xl text-white mt-3">
+        Thank You for Your Order!
+      </h3>
+      <p class="text-xs text-zinc-400 mt-1">
+        Your drop is being assembled in our climate-controlled vault.
+      </p>
+
+      <!-- Receipt Summary Card -->
+      <div class="mt-5 p-4 rounded-2xl bg-zinc-900/80 border border-white/10 text-left text-xs space-y-2 font-sans">
+        <div class="flex items-center justify-between pb-2 border-b border-white/5">
+          <span class="text-zinc-400">Order ID:</span>
+          <span id="success-order-id" class="font-mono font-bold text-purple-400">#NV-000000</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">Recipient:</span>
+          <span id="success-customer-name" class="font-semibold text-white"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">Phone:</span>
+          <span id="success-customer-phone" class="font-mono text-zinc-300"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">Delivery Address:</span>
+          <span id="success-customer-address" class="text-right text-zinc-300 max-w-[200px] truncate"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">Payment Mode:</span>
+          <span id="success-payment-mode" class="font-mono font-bold text-emerald-400">UPI</span>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-white/5 font-bold">
+          <span class="text-white">Amount Paid:</span>
+          <span id="success-order-total" class="font-mono text-sm text-purple-400"></span>
+        </div>
+      </div>
+
+      <div class="mt-6 space-y-2">
+        <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-heading font-bold text-xs shadow-lg shadow-purple-600/30 transition-all">
+          Continue Shopping
+        </button>
+        <button onclick="showToast('Tracking link sent to your registered WhatsApp number 📱', 'info', 'send')" class="w-full py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-all flex items-center justify-center gap-1.5">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Send Tracking to WhatsApp</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

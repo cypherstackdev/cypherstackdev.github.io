@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CourseNexus | India's Leading Job-Ready EdTech & Coaching Portal</title>
+  <meta name="description" content="Master Full-Stack Coding, Data Science & AI, Digital Marketing, UPSC, and UI/UX Design with live interactive mentorship and 100% placement support.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+              950: '#0b0f19'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti for Celebration effects -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white relative">
+
+  <!-- ============================================================ -->
+  <!-- TOP ANNOUNCEMENT & SCHOLARSHIP BANNER -->
+  <!-- ============================================================ -->
+  <div class="bg-gradient-to-r from-indigo-900 via-indigo-700 to-purple-900 text-white text-xs font-semibold py-2 px-4 border-b border-indigo-500/30 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
+        </span>
+        <span>🔥 <strong>National Skill Scholarship 2025:</strong> Get up to ₹5,000 Direct Fee Waiver</span>
+      </div>
+      
+      <div class="flex items-center gap-4 text-[11px]">
+        <div class="flex items-center gap-1.5 bg-black/30 px-2.5 py-0.5 rounded-full border border-amber-400/40">
+          <span class="text-amber-300">Offer Expires in:</span>
+          <span id="scholarshipCountdownBanner" class="font-mono font-bold text-amber-300">14:59</span>
+        </div>
+        <a href="https://wa.me/919876543210" target="_blank" class="hover:text-amber-300 flex items-center gap-1 hidden sm:flex">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Admissions: +91 98765 43210
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- HEADER & MAIN NAVIGATION -->
+  <!-- ============================================================ -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-[37px] z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-600/30">
+          <i data-lucide="compass" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <div class="text-xl font-black tracking-tight text-white font-heading flex items-center gap-1">
+            Course<span class="text-indigo-400">Nexus</span>
+          </div>
+          <div class="text-[9px] font-bold text-slate-400 tracking-wider uppercase">Future Skills Institute</div>
+        </div>
+      </a>
+
+      <!-- Search Bar in Nav -->
+      <div class="hidden md:flex flex-1 max-w-md mx-4">
+        <div class="relative w-full">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input 
+            type="text" 
+            id="courseSearchInput"
+            oninput="handleCourseSearch(this.value)"
+            placeholder="Search Full-Stack, AI, UPSC, Performance Marketing..." 
+            class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors">
+        </div>
+      </div>
+
+      <!-- Navigation Links & Action Buttons -->
+      <nav class="flex items-center gap-3 sm:gap-5">
+        <a href="#courses" class="text-xs font-semibold text-slate-300 hover:text-white transition-colors hidden lg:inline">Courses</a>
+        <a href="#quiz-simulator" class="text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Mock Test
+        </a>
+        <a href="#placements" class="text-xs font-semibold text-slate-300 hover:text-white transition-colors hidden lg:inline">Placement Wall</a>
+        
+        <!-- Admin Leads Inspector Toggle -->
+        <button 
+          onclick="openAdminLeadsDrawer()"
+          title="Institute CRM / Leads Dashboard"
+          class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 text-xs font-semibold">
+          <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i>
+          <span id="adminLeadCountBadge" class="hidden sm:inline bg-indigo-600/30 text-indigo-300 px-1.5 py-0.5 rounded text-[10px] border border-indigo-500/30">0 Leads</span>
+        </button>
+
+        <!-- CTA Button -->
+        <a 
+          href="#counseling-section" 
+          class="px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 transition-all">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+          <span>Free Counseling</span>
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- HERO SECTION WITH DUAL CTA & LIVE METRICS -->
+  <!-- ============================================================ -->
+  <section class="relative pt-12 pb-20 overflow-hidden bg-gradient-hero">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-800/80 text-indigo-300 text-xs font-bold">
+            <span class="pulse-live-dot"></span>
+            <span>Admissions Open for September 2025 Live Cohorts</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight font-heading">
+            Learn High-Income Skills. Crack Top Exams. <br>
+            <span class="text-gradient-primary">Get Placed with Confidence.</span>
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+            India's premier hybrid learning institute. Master Full-Stack Engineering, Generative AI, Performance Marketing, UPSC & Product Design under mentorship of Ex-FAANG Engineers, Top Rankers, and Industry Leaders.
+          </p>
+
+          <!-- Dual CTAs -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <a 
+              href="#courses" 
+              class="px-6 py-3.5 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-xl shadow-indigo-600/30 flex items-center gap-2 transition-all">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+              <span>Explore All Programs</span>
+            </a>
+
+            <a 
+              href="#quiz-simulator" 
+              class="px-6 py-3.5 rounded-xl text-sm font-bold bg-slate-900 hover:bg-slate-800 text-amber-300 hover:text-amber-200 border border-amber-500/40 flex items-center gap-2 transition-all">
+              <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+              <span>Take 2-Min Scholarship Quiz</span>
+            </a>
+          </div>
+
+          <!-- Trust Badges Row -->
+          <div class="pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+            <div>
+              <div class="text-xl sm:text-2xl font-black text-white font-heading">25,000+</div>
+              <div class="text-xs text-slate-400">Alumni in Top Firms</div>
+            </div>
+            <div>
+              <div class="text-xl sm:text-2xl font-black text-emerald-400 font-heading">125%</div>
+              <div class="text-xs text-slate-400">Avg Placement Hike</div>
+            </div>
+            <div>
+              <div class="text-xl sm:text-2xl font-black text-amber-400 font-heading">4.94 / 5</div>
+              <div class="text-xs text-slate-400">Google Rating (12k+)</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Quick Instant Counseling Lead Card -->
+        <div class="lg:col-span-5">
+          <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-indigo-500/30 shadow-2xl relative">
+            <div class="absolute -top-3 right-6 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-lg">
+              ⚡ Free 1-on-1 Session
+            </div>
+
+            <div class="mb-4">
+              <h3 class="text-lg font-bold text-white font-heading">Speak to a Senior Career Counselor</h3>
+              <p class="text-xs text-slate-400">Get a personalized roadmap & scholarship eligibility check in 15 mins.</p>
+            </div>
+
+            <form id="heroQuickLeadForm" onsubmit="event.preventDefault(); document.getElementById('careerCounselingForm').scrollIntoView(); showToast('Please complete the counseling form below.', 'info');" class="space-y-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Full Name</label>
+                <input type="text" placeholder="e.g. Ankit Verma" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">WhatsApp Number (+91)</label>
+                <input type="tel" placeholder="9876543210" pattern="[0-9]{10}" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" required>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Target Career / Exam</label>
+                <select class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                  <option value="Full-Stack Web & AI">Full-Stack Web & AI Engineering</option>
+                  <option value="Data Science & ML">Data Science & LLMOps</option>
+                  <option value="UPSC Civil Services">UPSC Civil Services 2025–26</option>
+                  <option value="Digital Marketing">Performance Marketing & Growth</option>
+                  <option value="UI/UX Design">UI/UX & Product Design</option>
+                </select>
+              </div>
+
+              <button type="submit" class="w-full py-3 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all mt-2">
+                <i data-lucide="phone-outgoing" class="w-4 h-4"></i>
+                <span>Request Free Callback Now</span>
+              </button>
+
+              <div class="text-center text-[10px] text-slate-400 mt-2">
+                🔒 Zero spam. Counselor callback guaranteed within 15 minutes.
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CORPORATE HIRING PARTNERS TICKER -->
+  <!-- ============================================================ -->
+  <section class="border-y border-slate-800 bg-slate-950/60 py-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 mb-3 text-center">
+      <p class="text-xs uppercase tracking-widest text-slate-400 font-bold">
+        Our Alumni Work at 1,200+ Top Tech Companies & Govt Bodies
+      </p>
+    </div>
+    <div class="ticker-track flex" id="hiringPartnersTrack">
+      <!-- Injected dynamically by app.js -->
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- COURSE CATALOG SECTION -->
+  <!-- ============================================================ -->
+  <section id="courses" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950 text-indigo-400 text-xs font-bold border border-indigo-800/60 mb-2">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i> Comprehensive Career Programs
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+          Explore Certified Job-Ready Programs
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          Designed with industry leaders. Includes live capstones, doubt-clearing, and 1-on-1 placement support.
+        </p>
+      </div>
+
+      <div id="courseCountBadge" class="text-xs font-semibold text-slate-400 bg-slate-900 px-3.5 py-1.5 rounded-xl border border-slate-800 shrink-0">
+        Showing All Programs
+      </div>
+    </div>
+
+    <!-- Category Pills Filter -->
+    <div id="categoryPillsContainer" class="flex flex-wrap gap-2.5 mb-10 pb-2 overflow-x-auto">
+      <!-- Injected dynamically by app.js -->
+    </div>
+
+    <!-- Course Cards Grid -->
+    <div id="courseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Injected dynamically by app.js -->
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- MOCK TEST & SCHOLARSHIP SIMULATOR SECTION -->
+  <!-- ============================================================ -->
+  <section id="quiz-simulator" class="py-20 bg-slate-950/70 border-y border-slate-800 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-10">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30 inline-flex items-center gap-1.5">
+          <i data-lucide="trophy" class="w-3.5 h-3.5"></i> 2-Minute Diagnostic Skill Assessment
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3 font-heading">
+          Take the Sample Mock Test & Win Merit Scholarship
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+          Test your problem-solving logic and technical intuition. Unlock up to ₹3,500 instant discount on enrollment.
+        </p>
+      </div>
+
+      <!-- Quiz Card Container -->
+      <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl relative">
+        
+        <!-- Quiz Header Bar -->
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-5 h-5 text-indigo-400"></i>
+            <span id="quizProgressText" class="text-xs font-bold text-slate-300">Question 1 of 3</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-mono text-amber-400 bg-amber-950/60 px-3 py-1 rounded-xl border border-amber-800/60">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span>3 Mins Test</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-800 h-1.5 rounded-full mb-6 overflow-hidden">
+          <div id="quizProgressBar" class="bg-indigo-500 h-full rounded-full transition-all duration-300" style="width: 33%"></div>
+        </div>
+
+        <!-- Dynamic Question & Options Container -->
+        <div id="quizQuestionContainer">
+          <!-- Injected dynamically by app.js -->
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- STUDENT LEAD CAPTURE & FREE COUNSELING SECTION -->
+  <!-- ============================================================ -->
+  <section id="counseling-section" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Details & Guarantee -->
+      <div class="lg:col-span-6 space-y-6">
+        <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+          <i data-lucide="user-check" class="w-3.5 h-3.5"></i> 100% Free Career Guidance
+        </span>
+
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+          Confused About Which Career Path or Exam Batch to Choose?
+        </h2>
+
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Book a 1-on-1 counseling session with our Senior Academic Directors. We will analyze your degree, coding/aptitude baseline, and recommend the best roadmap.
+        </p>
+
+        <div class="space-y-3.5 pt-2">
+          <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <div>
+              <h4 class="text-xs font-bold text-white">Customized 6-Month Upskilling Roadmap</h4>
+              <p class="text-[11px] text-slate-400">Step-by-step curriculum mapped to current hiring market demand.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <div>
+              <h4 class="text-xs font-bold text-white">Scholarship & No-Cost EMI Eligibility Audit</h4>
+              <p class="text-[11px] text-slate-400">Check eligible fee discounts and 0% interest bank financing options.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <div>
+              <h4 class="text-xs font-bold text-white">Direct WhatsApp Hotline with Faculty</h4>
+              <p class="text-[11px] text-slate-400">Get your syllabus doubts cleared directly with lead educators.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Detailed Lead Form -->
+      <div class="lg:col-span-6">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-indigo-500/30 shadow-2xl">
+          
+          <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+            <div>
+              <h3 class="text-lg font-bold text-white font-heading">Book Free 1-on-1 Session</h3>
+              <p class="text-xs text-slate-400">Fill details to get an instant callback from our advisor</p>
+            </div>
+            <span class="p-2.5 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
+              <i data-lucide="calendar-check" class="w-5 h-5"></i>
+            </span>
+          </div>
+
+          <form id="careerCounselingForm" class="space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Full Name *</label>
+                <input 
+                  type="text" 
+                  id="leadFullName" 
+                  placeholder="e.g. Rahul Sharma" 
+                  class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" 
+                  required>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">WhatsApp Mobile No. *</label>
+                <div class="flex">
+                  <span class="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-slate-800 bg-slate-950 text-slate-400 text-xs font-medium">+91</span>
+                  <input 
+                    type="tel" 
+                    id="leadPhone" 
+                    placeholder="9876543210" 
+                    pattern="[0-9]{10}"
+                    class="w-full bg-slate-900 border border-slate-800 rounded-r-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" 
+                    required>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Address *</label>
+              <input 
+                type="email" 
+                id="leadEmail" 
+                placeholder="rahul.sharma@gmail.com" 
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" 
+                required>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Target Career / Exam *</label>
+                <select 
+                  id="leadTargetCareer" 
+                  class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" 
+                  required>
+                  <option value="Full-Stack Web & AI Engineering">Full-Stack Web & AI Engineering</option>
+                  <option value="DSA & System Design (FAANG)">DSA & System Design (FAANG)</option>
+                  <option value="Applied Data Science & ML">Applied Data Science & ML Bootcamp</option>
+                  <option value="Business Analytics (PowerBI & SQL)">Business Analytics (PowerBI & SQL)</option>
+                  <option value="Performance Marketing & Ads">Performance Marketing & Ads</option>
+                  <option value="SEO & Content Strategy">SEO & Content Strategy</option>
+                  <option value="UPSC CSE Prelims + Mains">UPSC CSE Prelims + Mains Foundation</option>
+                  <option value="SSC CGL & Banking Quant">SSC CGL & Banking Quant / Reasoning</option>
+                  <option value="UI/UX Design Mastery">UI/UX & Product Design Mastery</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Graduation Year / Status</label>
+                <select 
+                  id="leadGradYear" 
+                  class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                  <option value="2026 Batch">2026 (Final Year Student)</option>
+                  <option value="2025 Batch">2025 (Graduating Soon)</option>
+                  <option value="2024 Passed Out">2024 (Recent Graduate / Fresher)</option>
+                  <option value="Working Professional (1-3 Yrs)">Working Professional (1–3 Yrs Exp)</option>
+                  <option value="Working Professional (3+ Yrs)">Working Professional (3+ Yrs Exp)</option>
+                  <option value="Non-Tech Career Switcher">Non-Tech Career Switcher</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Preferred Learning Mode</label>
+              <select 
+                id="leadPreferredMode" 
+                class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                <option value="Live Online Interactive Batch">Live Online Interactive (Hinglish/English)</option>
+                <option value="Hybrid (Live Online + Center Access)">Hybrid (Live Online + Offline Center Access)</option>
+                <option value="Self-Paced Recorded with 1-on-1 Doubt Support">Self-Paced Recorded + 1-on-1 Doubt Support</option>
+              </select>
+            </div>
+
+            <button 
+              type="submit" 
+              class="w-full py-3.5 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all mt-3">
+              <i data-lucide="calendar-check" class="w-4 h-4"></i>
+              <span>Book My Free Counseling Session (Instant Confirmation)</span>
+            </button>
+
+            <div class="flex items-center justify-center gap-3 text-[11px] text-slate-400 pt-2">
+              <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i> Encrypted Data</span>
+              <span>•</span>
+              <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3 text-amber-400"></i> Callback in 15 mins</span>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PLACEMENT WALL & SUCCESS STORIES -->
+  <!-- ============================================================ -->
+  <section id="placements" class="py-20 bg-slate-950/70 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-14">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 inline-flex items-center gap-1.5">
+          <i data-lucide="award" class="w-3.5 h-3.5"></i> Verified Hall of Fame
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3 font-heading">
+          Real Students. Real Career Transformations.
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+          From Tier-3 colleges and non-tech backgrounds to FAANG companies and UPSC selections.
+        </p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div id="statsContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
+        <!-- Injected dynamically by app.js -->
+      </div>
+
+      <!-- Placement Testimonials Cards -->
+      <div id="testimonialsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Injected dynamically by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- COMPARATIVE ADVANTAGE (WHY COURSENEXUS) -->
+  <!-- ============================================================ -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+        Why Learners Choose CourseNexus Over Traditional Options
+      </h2>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="border-b border-slate-800 bg-slate-900/60">
+            <th class="p-4 text-slate-400 font-bold">Feature / Deliverable</th>
+            <th class="p-4 text-indigo-400 font-bold bg-indigo-950/40 border-x border-indigo-800/40">CourseNexus Institute</th>
+            <th class="p-4 text-slate-400 font-bold">Traditional Offline Institutes</th>
+            <th class="p-4 text-slate-400 font-bold">Free YouTube / Recorded Videos</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/80">
+          <tr class="hover:bg-slate-900/30">
+            <td class="p-4 font-semibold text-white">Live Mentorship by Senior PBC / Ex-FAANG Faculty</td>
+            <td class="p-4 text-emerald-400 font-bold bg-indigo-950/20 border-x border-indigo-800/30">✅ Yes (Daily Live Sessions)</td>
+            <td class="p-4 text-slate-400">⚠️ Varies (Junior Faculty)</td>
+            <td class="p-4 text-rose-400">❌ No Live Access</td>
+          </tr>
+          <tr class="hover:bg-slate-900/30">
+            <td class="p-4 font-semibold text-white">Daily 1-on-1 Doubt Support (10 AM to 10 PM)</td>
+            <td class="p-4 text-emerald-400 font-bold bg-indigo-950/20 border-x border-indigo-800/30">✅ 15-Min Response SLA</td>
+            <td class="p-4 text-slate-400">⚠️ Limited to Classroom</td>
+            <td class="p-4 text-rose-400">❌ Zero Support</td>
+          </tr>
+          <tr class="hover:bg-slate-900/30">
+            <td class="p-4 font-semibold text-white">100% Guaranteed Placement Support & Mock Interviews</td>
+            <td class="p-4 text-emerald-400 font-bold bg-indigo-950/20 border-x border-indigo-800/30">✅ 1,200+ Hiring Partners</td>
+            <td class="p-4 text-slate-400">⚠️ Local Tie-ups Only</td>
+            <td class="p-4 text-rose-400">❌ No Job Referrals</td>
+          </tr>
+          <tr class="hover:bg-slate-900/30">
+            <td class="p-4 font-semibold text-white">Cloud GPU Labs & Real Enterprise Capstones</td>
+            <td class="p-4 text-emerald-400 font-bold bg-indigo-950/20 border-x border-indigo-800/30">✅ Included Free</td>
+            <td class="p-4 text-rose-400">❌ Extra Charges</td>
+            <td class="p-4 text-rose-400">❌ Self-Funded</td>
+          </tr>
+          <tr class="hover:bg-slate-900/30">
+            <td class="p-4 font-semibold text-white">0% No-Cost EMI & 7-Day Money Back Guarantee</td>
+            <td class="p-4 text-emerald-400 font-bold bg-indigo-950/20 border-x border-indigo-800/30">✅ 100% Risk-Free</td>
+            <td class="p-4 text-rose-400">❌ Non-Refundable Advance</td>
+            <td class="p-4 text-slate-400">N/A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FREQUENTLY ASKED QUESTIONS -->
+  <!-- ============================================================ -->
+  <section class="py-20 bg-slate-950/70 border-t border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          Everything you need to know about our batches, refunds, and career guidance.
+        </p>
+      </div>
+
+      <div id="faqsContainer" class="space-y-3">
+        <!-- Injected dynamically by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER -->
+  <!-- ============================================================ -->
+  <footer class="bg-slate-950 border-t border-slate-800 pt-16 pb-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        
+        <!-- Col 1: About & Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center">
+              <i data-lucide="compass" class="w-5 h-5 text-white"></i>
+            </div>
+            <span class="text-lg font-black text-white font-heading">CourseNexus</span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+            CourseNexus is India's leading skill accelerator & coaching institute empowering ambitious students to crack high-paying tech careers and competitive government exams.
+          </p>
+          <div class="text-[11px] text-slate-400 space-y-1">
+            <div>📍 <strong>HQ Campus:</strong> 4th Floor, Nexus Tech Park, Koramangala 5th Block, Bengaluru, KA 560095</div>
+            <div>📞 <strong>Admissions:</strong> +91 98765 43210 / +91 80 4123 4567</div>
+            <div>✉️ <strong>Email:</strong> admissions@coursenexus.in</div>
+          </div>
+        </div>
+
+        <!-- Col 2: Top Tracks -->
+        <div>
+          <h4 class="text-white font-bold mb-3 text-xs uppercase tracking-wider">Top Programs</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#courses" onclick="setCategory('coding')" class="hover:text-white">Full-Stack Web & AI</a></li>
+            <li><a href="#courses" onclick="setCategory('coding')" class="hover:text-white">DSA & System Design</a></li>
+            <li><a href="#courses" onclick="setCategory('datascience')" class="hover:text-white">Applied Data Science & ML</a></li>
+            <li><a href="#courses" onclick="setCategory('digitalmarketing')" class="hover:text-white">Performance Marketing</a></li>
+            <li><a href="#courses" onclick="setCategory('upsc')" class="hover:text-white">UPSC CSE Foundation</a></li>
+            <li><a href="#courses" onclick="setCategory('design')" class="hover:text-white">UI/UX & Product Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Student Resources -->
+        <div>
+          <h4 class="text-white font-bold mb-3 text-xs uppercase tracking-wider">Resources & Support</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#quiz-simulator" class="hover:text-white">Sample Mock Test Series</a></li>
+            <li><a href="#counseling-section" class="hover:text-white">Book Career Counseling</a></li>
+            <li><a href="#placements" class="hover:text-white">Placement Statistics</a></li>
+            <li><a href="https://wa.me/919876543210" target="_blank" class="hover:text-white">WhatsApp Helpline</a></li>
+            <li><button onclick="openAdminLeadsDrawer()" class="hover:text-white text-indigo-400">Coaching Admin CRM</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Trust & Regional Centers -->
+        <div>
+          <h4 class="text-white font-bold mb-3 text-xs uppercase tracking-wider">Regional Centers</h4>
+          <ul class="space-y-1.5 text-[11px] text-slate-400">
+            <li>• Bengaluru (Koramangala)</li>
+            <li>• Delhi NCR (Connaught Place)</li>
+            <li>• Hyderabad (Hitec City)</li>
+            <li>• Pune (FC Road)</li>
+            <li>• Patna (Boring Road)</li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500">
+            ISO 9001:2015 Accredited & Skill India Partner Platform
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+        <div>
+          © 2025–2026 CourseNexus EdTech Pvt Ltd. All rights reserved.
+        </div>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-white">Privacy Policy</a>
+          <a href="#" class="hover:text-white">Terms of Enrollment</a>
+          <a href="#" class="hover:text-white">Refund & Cancellation Policy</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- MODALS CONTAINER -->
+  <!-- ============================================================ -->
+
+  <!-- 1. Interactive Video Player & Curriculum Drawer Modal -->
+  <div id="videoPlayerModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div id="videoPlayerModalContent" class="w-full flex items-center justify-center">
+      <!-- Injected dynamically by app.js -->
+    </div>
+  </div>
+
+  <!-- 2. Instant UPI & EMI Enrollment Modal (Razorpay Style) -->
+  <div id="checkoutModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div id="checkoutModalContent" class="w-full flex items-center justify-center">
+      <!-- Injected dynamically by app.js -->
+    </div>
+  </div>
+
+  <!-- 3. Lead Confirmation Modal -->
+  <div id="leadConfirmationModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div id="leadConfirmationContent" class="w-full flex items-center justify-center">
+      <!-- Injected dynamically by app.js -->
+    </div>
+  </div>
+
+  <!-- 4. Admin Leads & Inquiries Inspector Drawer -->
+  <div id="adminLeadsDrawer" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex justify-end">
+    <div class="bg-slate-950 border-l border-slate-800 w-full max-w-lg h-full p-6 flex flex-col overflow-y-auto modal-container">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="database" class="w-5 h-5 text-indigo-400"></i>
+          <div>
+            <h3 class="text-sm font-bold text-white">Institute CRM & Leads Hub</h3>
+            <p class="text-[10px] text-slate-400">Live captured student inquiries & enrollments</p>
+          </div>
+        </div>
+        <button onclick="closeAdminLeadsDrawer()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="adminLeadsList" class="flex-1">
+        <!-- Injected dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- FLOATING WHATSAPP COUNSELOR ACTION BUTTON -->
+  <!-- ============================================================ -->
+  <div class="fixed bottom-6 right-6 z-40 flex items-center gap-2">
+    <a 
+      href="https://wa.me/919876543210?text=Hi%20CourseNexus%20Counselor,%20I%20am%20interested%20in%20learning%20more%20about%20your%20courses." 
+      target="_blank"
+      class="floating-counseling-btn bg-emerald-500 hover:bg-emerald-400 text-white p-3.5 sm:px-4 sm:py-3 rounded-full flex items-center gap-2 font-bold text-xs shadow-2xl transition-transform hover:scale-105">
+      <i data-lucide="message-circle" class="w-5 h-5"></i>
+      <span class="hidden sm:inline">Chat with Counselor</span>
+    </a>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- REAL-TIME SOCIAL PROOF TOAST -->
+  <!-- ============================================================ -->
+  <div id="liveActivityToast" class="fixed bottom-6 left-6 z-40 transform translate-y-24 opacity-0 transition-all duration-500 pointer-events-none max-w-xs sm:max-w-sm">
+    <div class="glass-panel p-3 px-4 rounded-2xl border border-indigo-500/40 shadow-2xl flex items-center gap-3">
+      <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0"></div>
+      <p id="liveActivityText" class="text-xs text-white font-medium line-clamp-2">
+        Rahul from Bengaluru just enrolled in Full-Stack Web & AI Engineering
+      </p>
+    </div>
+  </div>
+
+  <!-- Global Toast Notification Container -->
+  <div id="globalToastContainer" class="fixed top-20 right-6 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
